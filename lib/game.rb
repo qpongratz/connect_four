@@ -13,6 +13,7 @@ class Game
     @current_player = nil
   end
 
+  # Should be private and test through start.
   def make_players
     @players = []
     players.push(Player.new(1))

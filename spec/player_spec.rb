@@ -38,8 +38,8 @@ describe Player do
     end
   end
   describe '#input' do
-    let(:valid_input) {'4'}
-    let(:invalid_input) {'17'}
+    let(:valid_input) { '4' }
+    let(:invalid_input) { '17' }
     before do
       allow(player).to receive(:puts)
     end
