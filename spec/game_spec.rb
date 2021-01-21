@@ -24,8 +24,9 @@ describe Game do
   describe '#turn' do
     let(:board) { instance_double(Board) }
     let(:player) { instance_double(Player) }
+    let(:next_player) { instance_double(Player) }
     before do
-      game.instance_variable_set(:@players, [player, player])
+      game.instance_variable_set(:@players, [player, next_player])
       game.instance_variable_set(:@board, board)
     end
     context 'Board is not full' do
@@ -33,14 +34,22 @@ describe Game do
         allow(board).to receive(:full?).and_return(false)
         allow(board).to receive(:winner?).and_return(false, true)
         allow(player).to receive(:move)
+        allow(next_player).to receive(:move)
       end
       it 'Send board to current player' do
-        expect(player).to receive(:move)
+        expect(next_player).to receive(:move)
         game.turn
       end
-      it 'Ask board if there is a winner' do
-        expect(board).to receive(:winner?).twice
-        game.turn
+      context 'Winner after two turns' do
+        it 'Each player gets a move' do
+          expect(player).to receive(:move).once
+          expect(next_player).to receive(:move).once
+          game.turn
+        end
+        it 'Winner is pinged twice' do
+          expect(board).to receive(:winner?).twice
+          game.turn
+        end
       end
       it 'Send #winner to self if board.winner? is true' do
         expect(game).to receive(:winner).once
@@ -57,6 +66,7 @@ describe Game do
       end
       it 'Does not send board to current player' do
         expect(player).not_to receive(:move)
+        expect(next_player).not_to receive(:move)
         game.turn
       end
     end
