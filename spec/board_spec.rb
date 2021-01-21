@@ -116,5 +116,14 @@ describe Board do
         expect(result).to eq(2)
       end
     end
+    context 'Moves also work in last column' do
+      it 'Move is at bottom of last column' do
+        player_input = board.board_width
+        column = player_input - 1
+        board.move(1, player_input)
+        result = board.board_state[column][0]
+        expect(result).to eq(1)
+      end
+    end
   end
 end
