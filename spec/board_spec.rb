@@ -66,7 +66,7 @@ describe Board do
         (board.board_width - 1).times { fake_board_state << [] }
         allow(board).to receive(:board_state).and_return(fake_board_state)
       end
-      xit 'Returns false' do
+      it 'Returns false' do
         result = board.full?
         expect(result).to be false
       end
@@ -77,7 +77,7 @@ describe Board do
         (board.board_width - 1).times { fake_board_state << full_column }
         allow(board).to receive(:board_state).and_return(fake_board_state)
       end
-      xit 'Returns false' do
+      it 'Returns false' do
         result = board.full?
         expect(result).to be false
       end
@@ -87,10 +87,19 @@ describe Board do
         board.board_width.times { fake_board_state << full_column }
         allow(board).to receive(:board_state).and_return(fake_board_state)
       end
-      xit 'Returns true' do
+      it 'Returns true' do
         result = board.full?
         expect(result).to be true
       end
+    end
+  end
+
+  describe '#move' do
+    let(:fake_id) { 1 }
+    it 'Puts id at the bottom of an empty column' do
+      board.move(fake_id, 1)
+      result = board.board_state[0][0]
+      expect(result).to eq (fake_id)
     end
   end
 end

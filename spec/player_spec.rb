@@ -46,12 +46,14 @@ describe Player do
     it 'Return input when input is valid' do
       allow(player).to receive(:gets).and_return(valid_input)
       result = player.input
-      expect(result).to eq(valid_input)
+      valid_int = valid_input.to_i
+      expect(result).to eq(valid_int)
     end
     it 'Return valid input to board when inputting one invalid and then a valid move' do
       allow(player).to receive(:gets).and_return(invalid_input, valid_input)
       result = player.input
-      expect(result).to eq(valid_input)
+      valid_int = valid_input.to_i
+      expect(result).to eq(valid_int)
     end
   end
 end

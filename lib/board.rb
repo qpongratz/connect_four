@@ -10,17 +10,36 @@ class Board
     setup_board_space(board_width)
   end
 
-  def full?; end
+  def full?
+    number_of_elements >= total_board_spaces
+  end
 
   def winner?; end
 
   def move(id, input); end
 
   def valid_move?(input)
-    board_state[input - 1].length < board_height
+    column = translate(input)
+    column_height(column) < board_height
   end
 
   private
+  
+  def translate(input)
+    input - 1
+  end
+
+  def column_height(column)
+    board_state[column].length
+  end
+
+  def number_of_elements
+    board_state.flatten.count
+  end
+
+  def total_board_spaces
+    board_height * board_width
+  end
 
   def setup_board_space(width)
     @board_state = []

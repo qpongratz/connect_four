@@ -21,7 +21,7 @@ class Player
     puts 'Enter column number'
     input = gets.chomp
     input = gets.chomp until valid?(input)
-    input
+    input.to_i
   end
 
   private
