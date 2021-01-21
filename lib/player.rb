@@ -4,22 +4,28 @@ require_relative 'board'
 
 # Controls the player class
 class Player
+  attr_reader :id
   def initialize(id)
     @id = id
   end
 
   def move(board)
-    board.move(input)
+    player_input = input
+    input unless board.valid_move?(player_input)
+    board.move(id, player_input)
   end
 
   def input
+    puts 'Enter column number'
     input = gets.chomp
-    valid?(input) ? input : nil
+    input = gets.chomp until valid?(input)
+    input
   end
   
   private
   
   def valid?(input)
-    input.to_i.between?(1, 7)
+    input.to_i.between?(1, 7) ||
+      (puts 'Invalid column number')
   end
 end

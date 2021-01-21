@@ -5,5 +5,6 @@ class Board
   def initialize; end
   def full?; end
   def winner?; end
-  def move(input); end
+  def move(id, input); end
+  def valid_move?(input); end
 end
