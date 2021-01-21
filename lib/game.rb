@@ -8,9 +8,10 @@ class Game
   attr_reader :players, :current_player, :board
 
   def initialize
-      
+    @players = nil
+    @board = Board.new
+    @current_player = nil
   end
-
 
   def make_players
     @players = []
@@ -19,6 +20,9 @@ class Game
   end
 
   def start
+    make_players
+    players.shuffle!
+    turn
   end
 
   def turn
@@ -44,5 +48,4 @@ class Game
   def tie
     puts 'Board is full. No one has won.'
   end
-
 end

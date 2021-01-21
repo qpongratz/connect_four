@@ -6,6 +6,9 @@ require 'board'
 
 describe Game do
   subject(:game) { described_class.new }
+  before do
+    allow(game).to receive(:puts)
+  end
   describe '#make_players' do
     it 'Players contains two objects' do
       game.make_players
