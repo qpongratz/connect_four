@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'game'
-require 'player'
-require 'board'
 
 describe Game do
   subject(:game) { described_class.new }
