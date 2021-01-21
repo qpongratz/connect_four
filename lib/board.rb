@@ -16,7 +16,10 @@ class Board
 
   def winner?; end
 
-  def move(id, input); end
+  def move(id, input)
+    column = translate(input)
+    board_state[column].push(id)
+  end
 
   def valid_move?(input)
     column = translate(input)

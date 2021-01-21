@@ -95,11 +95,26 @@ describe Board do
   end
 
   describe '#move' do
-    let(:fake_id) { 1 }
-    it 'Puts id at the bottom of an empty column' do
-      board.move(fake_id, 1)
-      result = board.board_state[0][0]
-      expect(result).to eq (fake_id)
+    context 'Single move, board empty' do
+      it 'Puts id at the bottom of an empty column' do
+        board.move(1, 1)
+        result = board.board_state[0][0]
+        expect(result).to eq(1)
+      end
+    end
+    context 'Two moves in the same column' do
+      before do
+        board.move(1, 1)
+        board.move(2, 1)
+      end
+      it 'First move on bottom' do
+        result = board.board_state[0][0]
+        expect(result).to eq(1)
+      end
+      it 'Second move on top' do
+        result = board.board_state[0][1]
+        expect(result).to eq(2)
+      end
     end
   end
 end
