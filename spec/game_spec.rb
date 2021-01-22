@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 require 'game'
+require 'display'
 
 describe Game do
   subject(:game) { described_class.new }
-  before do
-    allow(game).to receive(:puts)
-  end
   describe '#make_players' do
+    before do
+      allow(game).to receive(:puts)
+    end
     it 'Players contains two objects' do
       game.make_players
       length = game.players.length
@@ -26,6 +27,10 @@ describe Game do
     before do
       game.instance_variable_set(:@players, [player, next_player])
       game.instance_variable_set(:@board, board)
+      allow(game).to receive(:puts)
+      allow(board).to receive(:board_state).and_return([[1, 1], [2, 2], [], [], [], [], []])
+      allow(board).to receive(:board_height).and_return(6)
+      allow(game).to receive(:print)
     end
     context 'Board is not full' do
       before do
@@ -67,6 +72,10 @@ describe Game do
         expect(next_player).not_to receive(:move)
         game.turn
       end
+    end
+  end
+  describe 'Display.board' do
+    context 'Board is empty' do
     end
   end
 

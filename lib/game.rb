@@ -2,6 +2,7 @@
 
 require_relative 'player'
 require_relative 'board'
+require_relative 'display'
 
 # Controls game flow and initializes boards and players
 class Game
@@ -21,6 +22,7 @@ class Game
   end
 
   def start
+    Display.board(board)
     make_players
     players.shuffle!
     turn
@@ -30,6 +32,7 @@ class Game
     until board.full?
       next_player
       current_player.move(board)
+      Display.board(board)
       return winner if board.winner?
     end
     tie
