@@ -15,45 +15,66 @@ class Board
   end
 
   def winner?
-    # What piece am I looking for?
-    x_pos = current_move[0]
-    y_pos = current_move[1]
-    piece = board_state[x_pos][y_pos]
-    winning_string = "#{piece} #{piece} #{piece} #{piece}"
-    # Define the lines the wins can be on.
-    horizontal = ((x_pos - 3)..(x_pos + 3)).to_a
-    vertical = ((y_pos - 3)..(y_pos + 3)).to_a
-    current_row = Array.new(7, y_pos)
-    current_column = Array.new(7, x_pos)
-    row_win = horizontal.zip(current_row)
-    column_win = current_column.zip(vertical)
-    forward_diagonal_win = horizontal.zip(vertical)
-    backward_diagonal_win = horizontal.zip(vertical.reverse)
-    line_arrays = [row_win, column_win, forward_diagonal_win, backward_diagonal_win]
-    # Map coordinates to pieces
-    line_strings = line_arrays.map do |array|
-      piece_list = array.map { |coordinate| board_state[coordinate[0]][coordinate[1]] }
-      piece_list.join(' ')
-    end
-    # Check for wins on each line.
-    line_strings.keep_if { |string| string.include?(winning_string) }
-    line_strings.length.positive?
+    winning_string = "#{current_piece} #{current_piece} #{current_piece} #{current_piece}"
+    intersecting_coordinates = intersecting_lines(current_x, current_y)
+    intersecting_pieces = coordinates_to_pieces(intersecting_coordinates)
+    intersecting_pieces.keep_if { |string| string.include?(winning_string) }
+    intersecting_pieces.length.positive?
   end
 
   def move(id, input)
-    column = translate(input)
+    column = translate_to_column(input)
     board_state[column].push(id)
     @current_move = [column, (column_height(column) - 1)]
   end
 
   def valid_move?(input)
-    column = translate(input)
+    column = translate_to_column(input)
     column_height(column) < board_height
   end
 
   private
 
-  def translate(input)
+  def on_board?(column, row)
+    column.between?(0, board_width - 1) && row.between?(0, board_height - 1)
+  end
+
+  def current_piece
+    piece_at_coordinate(current_x, current_y)
+  end
+
+  def current_x
+    current_move[0]
+  end
+
+  def current_y
+    current_move[1]
+  end
+
+  def coordinates_to_pieces(coordinate_arrays)
+    coordinate_arrays.map do |array|
+      pieces = array.map { |coord| piece_at_coordinate(coord[0], coord[1]) }
+      pieces.join(' ')
+    end
+  end
+
+  def piece_at_coordinate(column, row)
+    on_board?(column, row) ? board_state[column][row] : nil
+  end
+
+  def intersecting_lines(x_pos, y_pos)
+    horizontal = ((x_pos - 3)..(x_pos + 3)).to_a
+    vertical = ((y_pos - 3)..(y_pos + 3)).to_a
+    current_row = Array.new(7, y_pos)
+    current_column = Array.new(7, x_pos)
+    row_coords = horizontal.zip(current_row)
+    column_coords = current_column.zip(vertical)
+    positive_diagonal_coords = horizontal.zip(vertical)
+    negative_diagonal_coords = horizontal.zip(vertical.reverse)
+    [row_coords, column_coords, positive_diagonal_coords, negative_diagonal_coords]
+  end
+
+  def translate_to_column(input)
     input - 1
   end
 

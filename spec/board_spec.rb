@@ -150,5 +150,89 @@ describe Board do
         expect(result).to be false
       end
     end
+    context 'Forward diagonal wins' do
+      before do
+        fake_board_state = [[1, 2, 2, 2], [2, 1, 2, 2], [2, 2, 1, 2], [2, 2, 2, 1]]
+        board.instance_variable_set(:@board_state, fake_board_state)
+        board.instance_variable_set(:@board_width, 4)
+        board.instance_variable_set(:@board_width, 4)
+      end
+      it 'Returns true if current move is in first position' do
+        board.instance_variable_set(:@current_move, [0, 0])
+        result = board.winner?
+        expect(result).to be true
+      end
+      it 'Returns true if current move is in second position' do
+        board.instance_variable_set(:@current_move, [1, 1])
+        result = board.winner?
+        expect(result).to be true
+      end
+      it 'Returns true if current move is in third position' do
+        board.instance_variable_set(:@current_move, [2, 2])
+        result = board.winner?
+        expect(result).to be true
+      end
+      it 'Returns true if current move is in fourth position' do
+        board.instance_variable_set(:@current_move, [3, 3])
+        result = board.winner?
+        expect(result).to be true
+      end
+    end
+    context 'Backward diagonal wins' do
+      before do
+        fake_board_state = [[2, 2, 2, 1], [2, 2, 1, 2], [2, 1, 2, 2], [1, 2, 2, 2]]
+        board.instance_variable_set(:@board_state, fake_board_state)
+        board.instance_variable_set(:@board_width, 4)
+        board.instance_variable_set(:@board_width, 4)
+      end
+      it 'Returns true if current move is in first position' do
+        board.instance_variable_set(:@current_move, [0, 3])
+        result = board.winner?
+        expect(result).to be true
+      end
+      it 'Returns true if current move is in second position' do
+        board.instance_variable_set(:@current_move, [1, 2])
+        result = board.winner?
+        expect(result).to be true
+      end
+      it 'Returns true if current move is in third position' do
+        board.instance_variable_set(:@current_move, [2, 1])
+        result = board.winner?
+        expect(result).to be true
+      end
+      it 'Returns true if current move is in fourth position' do
+        board.instance_variable_set(:@current_move, [3, 0])
+        result = board.winner?
+        expect(result).to be true
+      end
+    end
+    context 'Horizontal wins' do
+      before do
+        fake_board_state = [[2, 2, 2, 1], [2, 2, 1, 1], [2, 2, 2, 1], [2, 1, 2, 1]]
+        board.instance_variable_set(:@board_state, fake_board_state)
+        board.instance_variable_set(:@board_width, 4)
+        board.instance_variable_set(:@board_width, 4)
+      end
+      it 'Returns true if current move is in first position' do
+        board.instance_variable_set(:@current_move, [0, 3])
+        result = board.winner?
+        expect(result).to be true
+      end
+      it 'Returns true if current move is in second position' do
+        board.instance_variable_set(:@current_move, [1, 3])
+        result = board.winner?
+        expect(result).to be true
+      end
+      it 'Returns true if current move is in third position' do
+        board.instance_variable_set(:@current_move, [2, 3])
+        result = board.winner?
+        expect(result).to be true
+      end
+      it 'Returns true if current move is in fourth position' do
+        board.instance_variable_set(:@current_move, [3, 3])
+        result = board.winner?
+        expect(result).to be true
+      end
+    end
   end
 end
