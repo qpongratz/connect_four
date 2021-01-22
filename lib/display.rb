@@ -7,7 +7,7 @@ module Display
 
   def display_board(board)
     readable_board = prepare_board(board)
-    print_top(board)
+    print_top(board.board_width)
     readable_board.each_with_index do |row, index|
       convert_ids_to_pieces(row)
       print_row_with_pieces(row)
@@ -24,9 +24,10 @@ module Display
     board_copy.transpose.reverse
   end
 
-  def print_top(board)
+  def print_top(width)
+    #print Column numbers above it
     print "\n┌"
-    (board.board_width - 1).times {print '──┬'}
+    (width - 1).times { print '──┬' }
     print '──┐'
   end
 
@@ -51,5 +52,4 @@ module Display
     (row.length - 1).times { print '──┴' }
     print '──┤'
   end
-
 end
