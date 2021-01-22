@@ -130,24 +130,17 @@ describe Board do
   describe '#winner?' do
     let(:fake_board_state) { [] }
     let(:empty_column) { [] }
-    context 'Four consecutive vertical' do
-      it 'Returns true if they are all the same' do
-        winning_column = [1, 1, 1, 1]
+    context 'Vertical win' do
+      before do
+        fake_board_state = [[1, 1, 1, 1], [1, 1, 2, 1], [2, 2, 1, 2], [1, 2, 1, 2]]
+        board.instance_variable_set(:@board_state, fake_board_state)
+        board.instance_variable_set(:@board_width, 4)
+        board.instance_variable_set(:@board_width, 4)
+      end
+      it 'Returns true if current move is top' do
         board.instance_variable_set(:@current_move, [0, 3])
-        fake_board_state << winning_column
-        6.times { fake_board_state << empty_column }
-        allow(board).to receive(:board_state).and_return(fake_board_state)
         result = board.winner?
         expect(result).to be true
-      end
-      it 'Returns false if they are not all the same' do
-        non_winning_column = [1, 2, 1, 2]
-        board.instance_variable_set(:@current_move, [0, 3])
-        fake_board_state << non_winning_column
-        6.times { fake_board_state << empty_column }
-        allow(board).to receive(:board_state).and_return(fake_board_state)
-        result = board.winner?
-        expect(result).to be false
       end
     end
     context 'Forward diagonal wins' do
@@ -232,6 +225,34 @@ describe Board do
         board.instance_variable_set(:@current_move, [3, 3])
         result = board.winner?
         expect(result).to be true
+      end
+    end
+    context 'Non-wins' do
+      before do
+        fake_board_state = [[1, 2, 2, 1], [1, 1, 1, 2], [1, 2, 1, 2], [2, 1, 1, 2]]
+        board.instance_variable_set(:@board_state, fake_board_state)
+        board.instance_variable_set(:@board_width, 4)
+        board.instance_variable_set(:@board_width, 4)
+      end
+      it 'Three horizontal and three diagaonal' do
+        board.instance_variable_set(:@current_move, [0, 0])
+        result = board.winner?
+        expect(result).to be false
+      end
+      it 'Three vertical and three horizontal' do
+        board.instance_variable_set(:@current_move, [1, 0])
+        result = board.winner?
+        expect(result).to be false
+      end
+      it 'Two diagonal' do
+        board.instance_variable_set(:@current_move, [3, 0])
+        result = board.winner?
+        expect(result).to be false
+      end
+      it 'Three horizontal' do
+        board.instance_variable_set(:@current_move, [3, 3])
+        result = board.winner?
+        expect(result).to be false
       end
     end
   end
