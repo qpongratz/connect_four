@@ -6,6 +6,7 @@ require_relative 'display'
 
 # Controls game flow and initializes boards and players
 class Game
+  include Display
   attr_reader :players, :current_player, :board
 
   def initialize
@@ -22,7 +23,7 @@ class Game
   end
 
   def start
-    Display.board(board)
+    display_board(board)
     make_players
     players.shuffle!
     turn
@@ -32,7 +33,7 @@ class Game
     until board.full?
       next_player
       current_player.move(board)
-      Display.board(board)
+      display_board(board)
       return winner if board.winner?
     end
     tie

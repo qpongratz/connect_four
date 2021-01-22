@@ -28,9 +28,6 @@ describe Game do
       game.instance_variable_set(:@players, [player, next_player])
       game.instance_variable_set(:@board, board)
       allow(game).to receive(:puts)
-      allow(board).to receive(:board_state).and_return([[1, 1], [2, 2], [], [], [], [], []])
-      allow(board).to receive(:board_height).and_return(6)
-      allow(game).to receive(:print)
     end
     context 'Board is not full' do
       before do
@@ -38,6 +35,7 @@ describe Game do
         allow(board).to receive(:winner?).and_return(false, true)
         allow(player).to receive(:move)
         allow(next_player).to receive(:move)
+        allow(game).to receive(:display_board)
       end
       it 'Send board to current player' do
         expect(next_player).to receive(:move)
@@ -75,7 +73,15 @@ describe Game do
     end
   end
   describe 'Display.board' do
-    context 'Board is empty' do
+    let(:board) { instance_double(Board) }
+    before do
+      allow(game).to receive(:turn)
+    end
+    context 'Start of the game' do
+      it 'Displays the board' do
+        expect(game).to receive(:display_board)
+        game.start
+      end
     end
   end
 
