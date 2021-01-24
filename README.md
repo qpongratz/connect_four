@@ -1,6 +1,9 @@
 # connect_four
 A connect four clone created with test driven development to help learn rspec.
 
+Live: https://repl.it/@QuentinPongratz/connectfour#README.md
+Hit green run button.
+
 Learning goals:
   -To learn how Test Driven Development
 
