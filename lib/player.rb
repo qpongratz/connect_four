@@ -11,7 +11,7 @@ class Player
   end
 
   def setup
-    puts 'Enter a player name'
+    puts 'Enter a player name:'
     @name = gets.chomp
   end
 
@@ -23,7 +23,7 @@ class Player
 
   # Could be private, but has tests associated with it. Perhaps rework tests to test this through move.
   def input
-    puts "#{name}, select a column."
+    puts "#{name}, select a column:"
     input = gets.chomp
     input = gets.chomp until valid?(input)
     input.to_i
