@@ -3,6 +3,8 @@
 require 'game'
 require 'display'
 
+# rubocop: disable Metrics/BlockLength
+
 describe Game do
   subject(:game) { described_class.new }
   describe '#make_players' do
@@ -88,3 +90,5 @@ describe Game do
     end
   end
 end
+
+# rubocop: enable Metrics/BlockLength

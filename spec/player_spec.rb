@@ -2,6 +2,8 @@
 
 require 'player'
 
+# rubocop: disable Metrics/BlockLength
+
 describe Player do
   subject(:player) { described_class.new(1) }
   let(:board) { instance_double(Board) }
@@ -57,3 +59,5 @@ describe Player do
     end
   end
 end
+
+# rubocop: enable Metrics/BlockLength
