@@ -17,7 +17,7 @@ class Player
 
   def move(board)
     player_input = input
-    input unless board.valid_move?(player_input)
+    player_input = input until board.valid_move?(player_input)
     board.move(id, player_input)
   end
 
