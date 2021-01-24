@@ -2,7 +2,6 @@
 
 # Displays the board
 module Display
-
   PIECES = ['⚪', '⚫'].freeze
 
   def display_board(board)
