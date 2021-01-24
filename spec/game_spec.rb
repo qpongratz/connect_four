@@ -28,6 +28,7 @@ describe Game do
       game.instance_variable_set(:@players, [player, next_player])
       game.instance_variable_set(:@board, board)
       allow(game).to receive(:puts)
+      allow(player).to receive(:name)
     end
     context 'Board is not full' do
       before do
@@ -74,8 +75,10 @@ describe Game do
   end
   describe 'Display.board' do
     let(:board) { instance_double(Board) }
+    let(:player) { instance_double(Player) }
     before do
       allow(game).to receive(:turn)
+      allow(game).to receive(:setup_players)
     end
     context 'Start of the game' do
       it 'Displays the board' do

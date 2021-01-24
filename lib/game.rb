@@ -25,6 +25,7 @@ class Game
   def start
     display_board(board)
     make_players
+    setup_players
     players.shuffle!
     turn
   end
@@ -41,13 +42,17 @@ class Game
 
   private
 
+  def setup_players
+    players.each(&:setup)
+  end
+
   def next_player
     players.rotate!
     @current_player = players[0]
   end
 
   def winner
-    puts "#{current_player} has won. Congratz!"
+    puts "#{current_player.name} has won. Congratz!"
   end
 
   def tie
