@@ -25,7 +25,8 @@ module Display
   end
 
   def print_top(width)
-    #print Column numbers above it
+    print "\n "
+    (1..width).each { |column| print "#{column}  "}
     print "\n┌"
     (width - 1).times { print '──┬' }
     print '──┐'

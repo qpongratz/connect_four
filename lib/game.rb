@@ -23,10 +23,10 @@ class Game
   end
 
   def start
-    display_board(board)
     make_players
     setup_players
     players.shuffle!
+    display_board(board)
     turn
   end
 
